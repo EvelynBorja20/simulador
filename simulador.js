@@ -1,7 +1,13 @@
 import { calcularDisponible, calcularCapacidadPago } from "./funciones.js";
 
-// dentro de calcular()
+window.calcular = function () {
 
-let capacidad = calcularCapacidadPago(disponible);
+    let ingresos = parseFloat(document.getElementById("txtIngresos").value);
+    let egresos = parseFloat(document.getElementById("txtEgresos").value);
 
-document.getElementById("spnCapacidadPago").innerText = capacidad.toFixed(2);
+    let disponible = calcularDisponible(ingresos, egresos);
+    document.getElementById("spnDisponible").innerText = disponible.toFixed(2);
+
+    let capacidad = calcularCapacidadPago(disponible);
+    document.getElementById("spnCapacidadPago").innerText = capacidad.toFixed(2);
+}

@@ -6,8 +6,12 @@ export function calcularDisponible(ingresos, egresos) {
     }
 
     return disponible;
-}//AQUI TODA LA LOGICA DE LAS FUNCIONES DEL NEGOCIO
+}
 
 export function calcularCapacidadPago(montoDisponible) {
     return montoDisponible * 0.5;
+}
+
+export function calcularInteresSimple(monto, tasa, plazoAnios) {
+    return plazoAnios * monto * (tasa / 100);
 }
