@@ -1,4 +1,4 @@
-import { calcularDisponible, calcularCapacidadPago, calcularInteresSimple } from "./funciones.js";
+import { calcularDisponible, calcularCapacidadPago, calcularInteresSimple, calcularTotalPagar, calcularCuotaMensual, aprobarCredito } from "./funciones.js";
 
 window.calcular = function () {
 
@@ -17,4 +17,18 @@ window.calcular = function () {
 
     let interes = calcularInteresSimple(monto, tasa, plazo);
     document.getElementById("spnInteresPagar").innerText = interes.toFixed(2);
+
+    let total = calcularTotalPagar(monto, interes);
+    document.getElementById("spnTotalPrestamo").innerText = total.toFixed(2);
+
+    let cuota = calcularCuotaMensual(total, plazo);
+    document.getElementById("spnCuotaMensual").innerText = cuota.toFixed(2);
+
+    let aprobado = aprobarCredito(capacidad, cuota);
+
+    if (aprobado) {
+        document.getElementById("spnEstadoCredito").innerText = "CREDITO APROBADO";
+    } else {
+        document.getElementById("spnEstadoCredito").innerText = "CREDITO RECHAZADO";
+    }
 }

@@ -19,3 +19,12 @@ export function calcularInteresSimple(monto, tasa, plazoAnios) {
 export function calcularTotalPagar(monto, interes) {
     return monto + interes + 100;
 }
+
+export function calcularCuotaMensual(total, plazoAnios) {
+    let meses = plazoAnios * 12;
+    return total / meses;
+}
+
+export function aprobarCredito(capacidadPago, cuotaMensual) {
+    return capacidadPago > cuotaMensual;
+}
