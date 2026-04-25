@@ -1,4 +1,4 @@
-import { calcularDisponible, calcularCapacidadPago } from "./funciones.js";
+import { calcularDisponible, calcularCapacidadPago, calcularInteresSimple } from "./funciones.js";
 
 window.calcular = function () {
 
@@ -10,4 +10,11 @@ window.calcular = function () {
 
     let capacidad = calcularCapacidadPago(disponible);
     document.getElementById("spnCapacidadPago").innerText = capacidad.toFixed(2);
+
+    let monto = parseFloat(document.getElementById("txtMonto").value);
+    let plazo = parseInt(document.getElementById("txtPlazo").value);
+    let tasa = parseFloat(document.getElementById("txtTasaInteres").value);
+
+    let interes = calcularInteresSimple(monto, tasa, plazo);
+    document.getElementById("spnInteresPagar").innerText = interes.toFixed(2);
 }
