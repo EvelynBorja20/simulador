@@ -7,3 +7,7 @@ export function calcularDisponible(ingresos, egresos) {
 
     return disponible;
 }//AQUI TODA LA LOGICA DE LAS FUNCIONES DEL NEGOCIO
+
+export function calcularCapacidadPago(montoDisponible) {
+    return montoDisponible * 0.5;
+}
