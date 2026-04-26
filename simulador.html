@@ -1,89 +1,90 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Simulador de Crédito</title>
-
-    <link rel="stylesheet" href="simulador.css">
-
-    <script type="module" src="simulador.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Crédito Empresarial</title>
+    <link rel="stylesheet" href="simulador.css">
 </head>
-
 <body>
 
-   
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="nav-logo">💼 FINANZAS PRO</span>
+            <ul class="nav-menu">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Préstamos</a></li>
+                <li><a href="#">Inversiones</a></li>
+                <li><a href="#" class="nav-active">Simulador</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <div class="container">
+    <div class="container">
+        <h1>Simulador de Crédito</h1>
 
-        <h1>Simulador de Crédito</h1>
+        <section class="form-section">
+            <h2>Datos Financieros</h2>
+            <div class="input-group">
+                <label for="txtIngresos">Ingresos Netos</label>
+                <input type="number" id="txtIngresos" min="0" placeholder="0.00">
+            </div>
 
- 
+            <div class="grid-inputs">
+                <div class="input-group">
+                    <label for="txtArriendo">Arriendo</label>
+                    <input type="number" id="txtArriendo" min="0" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="txtAlimentacion">Alimentación</label>
+                    <input type="number" id="txtAlimentacion" min="0" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="txtVarios">Otros Gastos</label>
+                    <input type="number" id="txtVarios" min="0" placeholder="0.00">
+                </div>
+            </div>
 
-        <h2>Datos financieros</h2>
+            <div class="results-box">
+                <p>Total Gastos: <span id="spnTotalGastos">$0.00</span></p>
+                <p>Monto Disponible: <span id="spnDisponible">$0.00</span></p>
+                <p>Capacidad de Pago: <span id="spnCapacidadPago">$0.00</span></p>
+            </div>
+        </section>
 
-        <label for="txtIngresos">Ingresos:</label>
+        <section class="form-section">
+            <h2>Solicitud de Crédito</h2>
+            <div class="input-group">
+                <label for="txtMonto">Monto del Crédito</label>
+                <input type="number" id="txtMonto" min="0" placeholder="0.00">
+            </div>
+            <div class="grid-inputs">
+                <div class="input-group">
+                    <label for="txtPlazo">Plazo (Años)</label>
+                    <input type="number" id="txtPlazo" min="1" placeholder="Ej: 1">
+                </div>
+                <div class="input-group">
+                    <label for="txtTasaInteres">Tasa Anual (%)</label>
+                    <input type="number" id="txtTasaInteres" min="0" placeholder="Ej: 12">
+                </div>
+            </div>
 
-        <input type="text" id="txtIngresos">
+            <div class="results-box">
+                <p>Interés Total: <span id="spnInteresPagar">$0.00</span></p>
+                <p>Total a Pagar: <span id="spnTotalPrestamo">$0.00</span></p>
+                <p>Cuota Mensual: <span id="spnCuotaMensual">$0.00</span></p>
+                <div id="statusBadge" class="badge">ESPERANDO DATOS...</div>
+            </div>
+        </section>
 
- 
+        <div class="buttons">
+            <button class="btn-primary" onclick="calcular()">Calcular Crédito</button>
+            <button class="btn-secondary" onclick="location.reload()">Reiniciar</button>
+        </div>
+    </div>
 
-        <label for="txtEgresos">Egresos:</label>
-
-        <input type="text" id="txtEgresos">
-
- 
-
-        <p>Disponible: <span id="spnDisponible"> 0 </span></p>
-
-        <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
-
- 
-
-        <h2>Solicitud de crédito</h2>
-
-        <label for="txtMonto">Monto:</label>
-
-        <input type="text" id="txtMonto">
-
- 
-
-        <label for="txtPlazo">Plazo en años:</label>
-
-        <input type="text" id="txtPlazo">
-
- 
-
-        <label for="txtTasaInteres">Tasa de interés:</label>
-
-        <input type="text" id="txtTasaInteres">
-
- 
-
-        <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
-
-        <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>
-
-        <p>Cuota mensual: <span id="spnCuotaMensual"></span></p>
-
-        <p>Estado de crédito: <span id="spnEstadoCredito">ANALIZANDO...</span></p>
-
- 
-
-        <div class="buttons">
-
-            <button id="btnCalcularCredito" onclick="calcular()">Calcular Crédito</button>
-
-            <button id="btnReiniciar">Reiniciar</button>
-
-        </div>
-
-    </div>
+    <script src="funciones.js"></script>
+    <script src="simulador.js"></script>
 </body>
 </html>

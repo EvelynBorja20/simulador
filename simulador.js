@@ -1,34 +1,52 @@
-import { calcularDisponible, calcularCapacidadPago, calcularInteresSimple, calcularTotalPagar, calcularCuotaMensual, aprobarCredito } from "./funciones.js";
+function calcular() {
+    // Función de validación para evitar números negativos
+    const leerNumero = (id) => {
+        let n = parseFloat(document.getElementById(id).value) || 0;
+        return n < 0 ? 0 : n;
+    };
 
-window.calcular = function () {
+    // 1. Obtener Datos
+    const ingresos = leerNumero("txtIngresos");
+    const arriendo = leerNumero("txtArriendo");
+    const alimentacion = leerNumero("txtAlimentacion");
+    const varios = leerNumero("txtVarios");
+    const monto = leerNumero("txtMonto");
+    const plazo = leerNumero("txtPlazo");
+    const tasa = leerNumero("txtTasaInteres");
 
-    let ingresos = parseFloat(document.getElementById("txtIngresos").value);
-    let egresos = parseFloat(document.getElementById("txtEgresos").value);
+    // 2. Cálculos de Gastos
+    const totalGastos = arriendo + alimentacion + varios;
+    const disponible = calcularDisponible(ingresos, totalGastos);
+    const capacidad = calcularCapacidadPago(disponible);
 
-    let disponible = calcularDisponible(ingresos, egresos);
-    document.getElementById("spnDisponible").innerText = disponible.toFixed(2);
+    // 3. Cálculos de Crédito
+    const interes = calcularInteresSimple(monto, tasa, plazo);
+    const totalPrestamo = calcularTotalPagar(monto, interes);
+    const cuota = (plazo > 0) ? calcularCuotaMensual(totalPrestamo, plazo) : 0;
 
-    let capacidad = calcularCapacidadPago(disponible);
-    document.getElementById("spnCapacidadPago").innerText = capacidad.toFixed(2);
+    // 4. Actualizar Interfaz
+    document.getElementById("spnTotalGastos").innerText = `$${totalGastos.toFixed(2)}`;
+    document.getElementById("spnDisponible").innerText = `$${disponible.toFixed(2)}`;
+    document.getElementById("spnCapacidadPago").innerText = `$${capacidad.toFixed(2)}`;
+    document.getElementById("spnInteresPagar").innerText = `$${interes.toFixed(2)}`;
+    document.getElementById("spnTotalPrestamo").innerText = `$${totalPrestamo.toFixed(2)}`;
+    document.getElementById("spnCuotaMensual").innerText = `$${cuota.toFixed(2)}`;
 
-    let monto = parseFloat(document.getElementById("txtMonto").value);
-    let plazo = parseInt(document.getElementById("txtPlazo").value);
-    let tasa = parseFloat(document.getElementById("txtTasaInteres").value);
+    // 5. Estado de Aprobación
+    const badge = document.getElementById("statusBadge");
+    const aprobado = aprobarCredito(capacidad, cuota);
 
-    let interes = calcularInteresSimple(monto, tasa, plazo);
-    document.getElementById("spnInteresPagar").innerText = interes.toFixed(2);
-
-    let total = calcularTotalPagar(monto, interes);
-    document.getElementById("spnTotalPrestamo").innerText = total.toFixed(2);
-
-    let cuota = calcularCuotaMensual(total, plazo);
-    document.getElementById("spnCuotaMensual").innerText = cuota.toFixed(2);
-
-    let aprobado = aprobarCredito(capacidad, cuota);
-
-    if (aprobado) {
-        document.getElementById("spnEstadoCredito").innerText = "CREDITO APROBADO";
+    if (monto === 0) {
+        badge.innerText = "ESPERANDO DATOS...";
+        badge.style.background = "#e2e8f0";
+        badge.style.color = "#475569";
+    } else if (aprobado && cuota > 0) {
+        badge.innerText = "APROBADO";
+        badge.style.background = "#dcfce7";
+        badge.style.color = "#16a34a";
     } else {
-        document.getElementById("spnEstadoCredito").innerText = "CREDITO RECHAZADO";
+        badge.innerText = "RECHAZADO";
+        badge.style.background = "#fee2e2";
+        badge.style.color = "#dc2626";
     }
 }
