@@ -47,6 +47,6 @@ function calcular() {
     } else {
         badge.innerText = "RECHAZADO";
         badge.style.background = "#fee2e2";
-        badge.style.color = "#dc2626";
+        badge.style.color = "#d43838";
     }
 }
